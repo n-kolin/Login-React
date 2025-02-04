@@ -1,14 +1,17 @@
 import { useContext, useState } from "react"
 import { object, string } from "yup"
-import { GetRecipeType } from "../../types/RecipeType"
+import { RecipeType } from "../../types/RecipeType"
 import { Box, Button, Modal, TextField, Typography } from "@mui/material"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
-import RecipeTypeSelector from "./RecipeTypeSelector"
 import { UserContext } from "../../App"
+import Swal from "sweetalert2"
+import { useNavigate } from "react-router"
 
-const RecipeForm = ({ submitFunc }: { submitFunc: (newRecipe: Partial<GetRecipeType>) => void }) => {
-    const [state, dispatch] = useContext(UserContext);
+const RecipeForm = ({ submitFunc }: { submitFunc: (newRecipe: Partial<RecipeType>) => void }) => {
+    const [state, ] = useContext(UserContext);
+
+    const navigate = useNavigate();
     const RecipeSchema = object({
         title: string().required('Title is required').min(5, "title must be at least 5 characters"),
         ingredients: string().required('ingredients are required'),
@@ -24,7 +27,6 @@ const RecipeForm = ({ submitFunc }: { submitFunc: (newRecipe: Partial<GetRecipeT
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
         reset
     } = useForm({ resolver: yupResolver(RecipeSchema) })
@@ -34,7 +36,22 @@ const RecipeForm = ({ submitFunc }: { submitFunc: (newRecipe: Partial<GetRecipeT
     const onSubmit: SubmitHandler<Fields> = async (data) => {
 
         setOpen(false)
-        console.log(state);
+        if(!state.id)
+        {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "You must be logged in to add a new recipe.",
+            });
+            
+        }
+        else{
+            Swal.fire({
+                icon: "success",
+                title: "Success...",
+                text: "Recipe added successfully",
+            });
+        }
 
         await submitFunc(
             {
@@ -45,6 +62,7 @@ const RecipeForm = ({ submitFunc }: { submitFunc: (newRecipe: Partial<GetRecipeT
             }
         )
         reset()
+        navigate('/')
     }
 
     const fields = [
@@ -96,7 +114,6 @@ const RecipeForm = ({ submitFunc }: { submitFunc: (newRecipe: Partial<GetRecipeT
                             Submit
                         </Button></div>
                         <Box sx={{ width: '50%', alignItems: 'center' }}>
-                        <RecipeTypeSelector ></RecipeTypeSelector>
                     </Box>
                     </Box>
                 </form>

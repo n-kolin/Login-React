@@ -3,7 +3,9 @@ import Modal from '@mui/material/Modal';
 import { Box, Button, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField, Typography } from '@mui/material';
 import { Email, Visibility, VisibilityOff } from '@mui/icons-material';
 import { FormEvent, useRef } from 'react';
+import { useNavigate } from 'react-router';
 const LoginForm = ({ onSubmit }: { onSubmit: (email: string, pass: string) => void }) => {
+
 
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -38,6 +40,7 @@ const LoginForm = ({ onSubmit }: { onSubmit: (email: string, pass: string) => vo
         e.preventDefault();
         await onSubmit(emailRef.current?.value || '', passwordRef.current?.value || '')
         handleClose();
+
     }
     return (<>
         <Modal

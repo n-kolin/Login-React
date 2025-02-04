@@ -14,7 +14,7 @@ const AppLayout = () => {
                 <Navbar />
             </AppBar>
             <Box sx={{ width: '30%', m: 2 }}>
-                {state.id &&
+                {state.id!==0 &&
                  <UserName></UserName>}
             </Box>
             

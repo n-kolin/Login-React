@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { GetRecipeType } from '../types/RecipeType';
+import { RecipeType } from '../types/RecipeType';
 
 interface RecipesState {
-    recipes: GetRecipeType[];
+    recipes: RecipeType[];
     loading: boolean;
     error: string | null;
 }
@@ -14,7 +14,7 @@ const initialState: RecipesState = {
     error: null,
 };
 
-export const getAllRecipes = createAsyncThunk<GetRecipeType[], void>(
+export const getAllRecipes = createAsyncThunk<RecipeType[], void>(
     'recipes/getAll',
     async (_, thunkAPI) => {
         try {
@@ -26,9 +26,9 @@ export const getAllRecipes = createAsyncThunk<GetRecipeType[], void>(
     }
 );
 
-export const addRecipe = createAsyncThunk<GetRecipeType, Partial<GetRecipeType>>(
+export const addRecipe = createAsyncThunk<RecipeType, Partial<RecipeType>>(
     'recipes/add',
-    async (recipe: Partial<GetRecipeType>, thunkAPI) => {
+    async (recipe: Partial<RecipeType>, thunkAPI) => {
         try {
             const response = await axios.post('http://localhost:3000/api/recipes', recipe, { headers: { 'user-id': recipe.authorId } });
             return response.data; 
@@ -65,7 +65,7 @@ const recipesSlice = createSlice({
             })
             .addCase(addRecipe.fulfilled, (state, action) => {
                 state.loading = false;
-                state.recipes.push(action.payload as GetRecipeType);
+                state.recipes.push(action.payload as RecipeType);
             })
             .addCase(addRecipe.rejected, (state, action) => {
                 state.loading = false;

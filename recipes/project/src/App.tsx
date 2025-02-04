@@ -5,7 +5,6 @@ import { RouterProvider } from 'react-router'
 import { Provider } from 'react-redux'
 import store from './store/store'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import RecipeTypeSelector from './components/Recipes/RecipeTypeSelector'
 import userReducer, { ActionType, initialUser, UserType } from './userReducer'
 import { createContext, Dispatch, useReducer } from 'react'
 export const UserContext = createContext<[

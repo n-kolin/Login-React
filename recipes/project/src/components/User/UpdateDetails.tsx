@@ -5,7 +5,10 @@ import axios from "axios";
 import { UserType } from "../../userReducer";
 import Swal from "sweetalert2";
 import { UserContext } from "../../App";
+import { useNavigate } from "react-router";
 const UpdateDetails = () => {
+
+    const navigate = useNavigate();
 
     const [state, dispatch] = useContext(UserContext);
     console.log(state);
@@ -68,6 +71,8 @@ const UpdateDetails = () => {
             data: userUpdateData,
         })
         setOpen(false)
+        navigate('/')
+
     }
 
     const fields = [

@@ -1,4 +1,3 @@
-// import * as React from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionActions from '@mui/material/AccordionActions';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -6,7 +5,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
-import { GetRecipeType, RecipeType } from '../../types/RecipeType';
+import { RecipeType } from '../../types/RecipeType';
 import { Box, Container } from '@mui/material';
 import { useParams } from 'react-router';
 import { useSelector } from 'react-redux';
@@ -15,12 +14,10 @@ import { StoreType } from '../../store/store';
 export default function RecipeCard() {
 
     const { id } = useParams<{ id: string }>();
-    const imageUrl = "https://img.freepik.com/free-photo/party-handmade-pink-cake-pops-with-colorful-sprinkles-white-sticks-white-ceramic-plate-sweet-candy-bar_132075-8162.jpg?t=st=1738017676~exp=1738021276~hmac=9a0f3c989d65375504fdbcd135d7b072cca7d6cca377cbc927744fa45d7ca033&w=996"
-
+    const imageUrl = "https://img.freepik.com/free-photo/different-types-pasta-different-plates-top-view_176474-307.jpg?ga=GA1.1.1129303057.1731009829&semt=ais_hybrid_sidr"   
     const { recipes: { recipes: recipesList } } = useSelector((store: StoreType) => store);
-    const newRecipe = recipesList.find((r) => r.id === Number(id)) as GetRecipeType
+    const newRecipe = recipesList.find((r) => r.id === Number(id)) as RecipeType
 
-    console.log(newRecipe);
 
     return (<>{newRecipe &&
         <Container sx={{ marginLeft: 10, width: 500 }}>

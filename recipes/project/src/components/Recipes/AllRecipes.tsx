@@ -6,13 +6,14 @@ import SmallRecipeCard from "./SmallRecipeCard";
 import { useParams } from "react-router";
 import { Box } from "@mui/material";
 import RecipeCard from "./RecipeCard";
-import { GetRecipeType } from "../../types/RecipeType";
+import { RecipeType } from "../../types/RecipeType";
+import RecipesMessage from "./RecipesMessage";
 
 const AllRecipes = () => {
 
     const { id } = useParams<{ id: string }>(); // חילוץ ה-ID מה-URL
 
-    const [recipes, setRecipes] = useState<GetRecipeType[]>([] as GetRecipeType[]);
+    const [recipes, setRecipes] = useState<RecipeType[]>([] as RecipeType[]);
 
     const dispatch = useDispatch<AppDispatch>();
 
@@ -20,7 +21,7 @@ const AllRecipes = () => {
 
         const fetchRecipes = async () => {
             const action = await dispatch(getAllRecipes());
-            setRecipes(action.payload as GetRecipeType[]); // Access the payload
+            setRecipes(action.payload as RecipeType[]); // Access the payload
 
         };
 
@@ -31,7 +32,9 @@ const AllRecipes = () => {
 
         <Box sx={{ display: 'flex', justifyContent: 'space-between', margin: 15 }}>
             <Box>
-                {id && <RecipeCard />}
+                {id ? <RecipeCard />
+                :<RecipesMessage></RecipesMessage>
+                }
             </Box>
             <Box>
                 {recipes && recipes.map((recipe) => <SmallRecipeCard key={recipe.id} text={recipe.title} id={recipe.id} />)}

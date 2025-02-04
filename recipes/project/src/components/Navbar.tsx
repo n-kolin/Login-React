@@ -32,7 +32,7 @@ const Navbar = () => {
                         <Typography variant="h6" sx={{ marginRight: 2 }}>about</Typography>
                     </Link>
 
-                    {state.id &&
+                    {state.id!==0 &&
                         <Link to='add' style={tabStyle}>
                             <Typography variant="h6" sx={{ marginRight: 2 }}>add recipe</Typography>
                         </Link>

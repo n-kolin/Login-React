@@ -34,8 +34,6 @@ const Login = () => {
     const urlServer = 'http://localhost:3000/api/user/'
 
     const onSubmit = async (email: string, pass: string) => {
-
-        console.log('***********');
         setIsLogged(false)
         try {
             let status = isSignIn ? 'login' : 'register'
@@ -57,7 +55,6 @@ const Login = () => {
                         }
                     })
                 setIsLogged(true)
-                console.log(state);
 
             })
         }
